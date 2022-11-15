@@ -1,10 +1,10 @@
 import './app.scss';
-import Form from './Form';
+import Form3 from './Form';
 
 function App() {
   return (
     <div className="app">
-        <Form/>
+        <Form3/>
     </div>
   );
 }
