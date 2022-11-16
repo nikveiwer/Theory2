@@ -53,12 +53,22 @@ const Slider = (props) => {
     const [slide, setSlide] = useState(10);
     const [autoplay, setAutoplay] = useState(false);
 
+    const [state, setState] = useState({slide: 0, autoplay: false})
+
     function changeSlide(i) {
-        setSlide(slide + i);
+        setSlide(slide => slide + i);
+
+        setState(state => ({
+            slide: state.slide + i//заместит полностью все состояние, поэтому редко используют
+        }))
+
+        setState(state => ({...state,//так можно, но слишком длинно(но всеже будет требуемое сотсояние)
+            slide: state.slide + i
+        }))
     }
 
     function changeAutoplay(i) {
-        setAutoplay(!autoplay);
+        setAutoplay(autoplay => !autoplay);
     }
 
     return (
