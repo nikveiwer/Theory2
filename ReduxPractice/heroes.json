@@ -1,0 +1,32 @@
+{
+  "heroes": [
+    {
+      "id": "d80b19f5-7b8f-4db0-b09f-3be1d5ff478c",
+      "name": "dfvdvs",
+      "description": "fdsfdsf",
+      "element": "earth"
+    }
+  ],
+  "filters": [
+    {
+      "filter": "all",
+      "text": ""
+    },
+    {
+      "filter": "fire",
+      "text": "Огонь"
+    },
+    {
+      "filter": "water",
+      "text": "Вода"
+    },
+    {
+      "filter": "wind",
+      "text": "Ветер"
+    },
+    {
+      "filter": "earth",
+      "text": "Земля"
+    }
+  ]
+}
