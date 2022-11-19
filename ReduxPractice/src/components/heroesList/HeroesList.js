@@ -2,7 +2,7 @@ import {useHttp} from '../../hooks/http.hook';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { heroesFetching, heroesFetched, heroesFetchingError, clickedDeleteBtn,} from '../../actions';
+import { heroesFetching, heroesFetched, heroesFetchingError, clickedDeleteBtn, filtersFetched} from '../../actions';
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
 
@@ -12,7 +12,7 @@ import Spinner from '../spinner/Spinner';
 // Удаление идет и с json файла при помощи метода DELETE
 
 const HeroesList = () => {
-    const {heroes, heroesLoadingStatus, deletedElement, addedElement} = useSelector(state => state);
+    const {heroes, heroesLoadingStatus, deletedElement, activeFilter} = useSelector(state => state);
     const dispatch = useDispatch();
     const {request} = useHttp();
 
@@ -21,15 +21,6 @@ const HeroesList = () => {
         // eslint-disable-next-line
     }, []);
 
-    useEffect(() => {
-        if (addedElement === "noChanges") {
-            return
-        } else if (addedElement === "changed") {
-            loadingHeroes()
-        }
-
-        // eslint-disable-next-line
-    }, [addedElement]);
 
     useEffect(() => {
         let newHeroes = heroes.filter((hero) => (hero.id != deletedElement));
@@ -42,9 +33,20 @@ const HeroesList = () => {
     }, [deletedElement]);
     
     const loadingHeroes = () => {
+        let heroesAndFilters = {};
+
         dispatch(heroesFetching());
         request("http://localhost:3001/heroes")
-            .then(data => dispatch(heroesFetched(data)))
+            .then(data => {
+                heroesAndFilters.heroes = data;
+            })
+        request("http://localhost:3001/filters")
+            .then(data => {
+                heroesAndFilters.filters = data;
+                console.log(heroesAndFilters);
+                dispatch(filtersFetched(heroesAndFilters.filters))
+                dispatch(heroesFetched(heroesAndFilters.heroes))
+            })
             .catch(() => dispatch(heroesFetchingError()))
 
     }
@@ -61,7 +63,7 @@ const HeroesList = () => {
             return <h5 className="text-center mt-5">Героев пока нет</h5>
         }
 
-        return arr.map(({id, ...props}) => {
+        return (activeFilter === "all" ? arr : arr.filter(hero => hero.element === activeFilter)).map(({id, ...props}) => {
             return <HeroesListItem key={id} {...props} clickToDelete={() => clickToDelete(id)}/>
         })
     }

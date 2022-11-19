@@ -3,7 +3,7 @@ const initialState = {
     heroesLoadingStatus: 'idle',
     filters: [],
     deletedElement: null,
-    addedElement: "noChanges"
+    activeFilter: "all"
 }
 
 const reducer = (state = initialState, action) => {
@@ -18,7 +18,6 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 heroes: action.payload,
                 heroesLoadingStatus: 'idle',
-                addedElement: "noChanges"
             }
         case 'FILTERS_FETCHED':
             return {
@@ -39,11 +38,10 @@ const reducer = (state = initialState, action) => {
                 deletedElement: action.payload
 
             }
-        case 'CLICKED_ADD_BTN':
+        case 'ACTIVE_FILTER_CHANGED':
             return {
                 ...state,
-                addedElement: "changed"
-
+                activeFilter: action.payload
             }
     
     }

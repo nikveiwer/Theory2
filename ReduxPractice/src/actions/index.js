@@ -32,14 +32,9 @@ export const clickedDeleteBtn = (cickedElementId) => {
     }
 }
 
-export const clickedAddBtn = () => {
+export const activeFilterChanged = (newActiveFilter) => {
     return {
-        type: 'CLICKED_ADD_BTN'
+        type: 'ACTIVE_FILTER_CHANGED',
+        payload: newActiveFilter
     }
 }
-
-// export const newHeroWasLoaded= () => {
-//     return {
-//         type: 'NEW_HERO_WAS_LOADED'
-//     }
-// }

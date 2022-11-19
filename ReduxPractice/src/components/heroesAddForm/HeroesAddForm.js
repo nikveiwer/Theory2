@@ -3,7 +3,7 @@ import {useHttp} from '../../hooks/http.hook';
 import { useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { heroesFetching, filtersFetched, heroesFetchingError, clickedAddBtn } from '../../actions';
+import { heroesFetching, heroesFetchingError, heroesFetched } from '../../actions';
 
 import Spinner from '../spinner/Spinner';
 import { v4 as uuidv4 } from 'uuid'
@@ -24,21 +24,21 @@ const HeroesAddForm = () => {
     const [localAreaValue, setLocalAreaValue] = useState("");
     const [localSelectValue, setLocalSelectValue] = useState("own");
 
-    const {filters, heroesLoadingStatus} = useSelector(state => state);
+    const {heroes, filters, heroesLoadingStatus} = useSelector(state => state);
     const dispatch = useDispatch();
     const {request} = useHttp();
 
 
     console.log(localSelectValue);
 
-    useEffect(() => {
-        dispatch(heroesFetching());
-        request("http://localhost:3001/filters")
-            .then(data => dispatch(filtersFetched(data)))
-            .catch(() => dispatch(heroesFetchingError()))
+    // useEffect(() => {
+    //     dispatch(heroesFetching());
+    //     request("http://localhost:3001/filters")
+    //         .then(data => dispatch(filtersFetched(data)))
+    //         .catch(() => dispatch(heroesFetchingError()))
 
-        // eslint-disable-next-line
-    }, []);
+    //     // eslint-disable-next-line
+    // }, []);
 
     const onAdd = (e) => {
         e.preventDefault();
@@ -51,7 +51,7 @@ const HeroesAddForm = () => {
 
         dispatch(heroesFetching());
         request("http://localhost:3001/heroes", "POST", JSON.stringify(newHero))
-            .then(data => dispatch(clickedAddBtn()))
+            .then(dispatch(heroesFetched([...heroes, newHero])))
             .catch(() => dispatch(heroesFetchingError()))
 
     }
