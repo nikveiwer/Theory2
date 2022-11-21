@@ -1,36 +1,5 @@
 {
-  "heroes": [
-    {
-      "id": "8012aec2-0d67-4718-bfd4-83e5051e71fd",
-      "name": "rgr",
-      "description": "greger",
-      "element": "water"
-    },
-    {
-      "id": "3b687c11-2971-49a2-8679-420ddca9e84a",
-      "name": "vdsv",
-      "description": "vdsv",
-      "element": "water"
-    },
-    {
-      "id": "16821a37-3635-43df-9ea5-260021176014",
-      "name": "grg",
-      "description": "greg",
-      "element": "fire"
-    },
-    {
-      "id": "16eea6ed-401c-482e-90e3-8deb8b218063",
-      "name": "grg",
-      "description": "greg",
-      "element": "wind"
-    },
-    {
-      "id": "9d5dc7a3-d6ca-4858-a741-79837f22bc61",
-      "name": "grg",
-      "description": "greg",
-      "element": "earth"
-    }
-  ],
+  "heroes": [],
   "filters": [
     {
       "filter": "all",
