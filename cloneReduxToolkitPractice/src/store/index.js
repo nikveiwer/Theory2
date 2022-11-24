@@ -1,7 +1,7 @@
 
 import { configureStore } from "@reduxjs/toolkit";
-import heroes from '../reducers/heroes';
-import filters from '../reducers/filters';
+import heroes from '../components/heroesList/heroesSlice';
+import filters from '../components/heroesFilters/filtersSlice';
 
 
 const stringMiddleware = (store) => (next) => (action) => {//Делает то же самое, что и энхенсер, но работает напрямую с диспетчем а не сос тором
