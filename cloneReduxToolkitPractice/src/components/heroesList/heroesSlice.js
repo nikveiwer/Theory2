@@ -1,10 +1,19 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, createEntityAdapter } from "@reduxjs/toolkit";
 import {useHttp} from '../../hooks/http.hook';
 
-const initialState = {
-    heroes: [],
-    heroesLoadingStatus: 'idle',
-}
+
+const heroesAdapter = createEntityAdapter();
+
+// const initialState = {
+//     heroes: [],
+//     heroesLoadingStatus: 'idle',
+// }
+
+const initialState = heroesAdapter.getInitialState({
+    heroesLoadingStatus: 'idle'
+})
+
+
 
 export const fetchHeroes = createAsyncThunk(//Возвращает не один, а сразу три экшона(pending, fulfilled, rejected)(примерно как в промисах)
     "heroes/fetchHeroes",
@@ -35,7 +44,8 @@ const heroesSlice = createSlice({
         builder
             .addCase(fetchHeroes.pending, state => {state.heroesLoadingStatus = 'loading'})
             .addCase(fetchHeroes.fulfilled, (state, action) => {
-                state.heroes = action.payload;
+                // state.heroes = action.payload;
+                heroesAdapter.setAll(state, action.payload)
                 state.heroesLoadingStatus = "idle";
             })
             .addCase(fetchHeroes.rejected, state => {state.heroesLoadingStatus = "error";})
@@ -46,6 +56,11 @@ const heroesSlice = createSlice({
 const {actions, reducer} = heroesSlice;
 
 export default reducer;
+
+export const {
+    selectAll
+} = heroesAdapter.getSelectors(state => state.heroes)
+
 export const {
     heroesFetching,
     heroesFetched,
