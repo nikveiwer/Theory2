@@ -14,6 +14,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 
 import { heroCreated } from '../heroesList/heroesSlice';
+import { selectAll } from '../heroesFilters/filtersSlice';
+
 
 const HeroesAddForm = () => {
     // Состояния для контроля формы
@@ -21,7 +23,9 @@ const HeroesAddForm = () => {
     const [heroDescr, setHeroDescr] = useState('');
     const [heroElement, setHeroElement] = useState('');
 
-    const {filters, filtersLoadingStatus} = useSelector(state => state.filters);
+    const filters = useSelector(selectAll);
+    const {  filtersLoadingStatus } = useSelector(state => state.filters);
+    
     const dispatch = useDispatch();
     const {request} = useHttp();
 
